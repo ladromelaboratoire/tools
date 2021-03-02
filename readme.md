@@ -10,3 +10,7 @@ Cette classe charge un fichier JSON donné en paramètres et le tansforme en tab
 C'est une classe outil pour alimenter des webapps et importer les fichiers de config.
 
 La classe a la possibilité de charger un tableau en variables d'environnement système. Cela permet, par exemple, de gérer un environnement de test et un environnement de prod sans avoir de paramètres dans les classes ou de login/mdp
+
+### HTMLTools
+
+Collection de fonctions statiques pour manuipuler des données et sortir du HTML
