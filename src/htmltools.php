@@ -1,6 +1,7 @@
 <?php
 
 /*********
+*
 *  File: htmltools.php
 *  Date: 01/03/2021
 *  Suject : set of static methods to transform data to html entities
@@ -11,20 +12,28 @@ namespace ladromelaboratoire\tools;
 
 class htmltools {
 	
-	static $arraydata ;
-	
-	public static function array2html() {
+	public static function array2html($arraydata, $is_assoc = false) {
 		//$thead = array_shift(self::$arraydata);
-		$tbody = array_reduce(self::$arraydata, 'self::reducearray');
-		$thead = "<tr><th>" . implode("</th><th>", array_keys(self::$arraydata[0])) . "</th></tr>";
-		return "<table>".$thead.$tbody."</table>\r\n";
-	}
-	protected static function reducearray($a,$b) {
-		if (is_array($b)) {
-			return $a.="<tr><td>".implode("</td><td>",$b)."</td></tr>\r\n";
+		if ($is_assoc) {
+			$thead = "<tr><th>" . implode("</th><th>", array_keys($arraydata[0])) . "</th></tr>\r\n";
 		}
 		else {
-			return $a.="<tr><td>".$b."</td></tr>";
+			$thead = "<tr><th>" . implode("</th><th>", array_shift($arraydata)) . "</th></tr>\r\n";
+		}
+		$tbody = "";
+		foreach ($arraydata as $row) {
+			$tbody .= "<tr><td>".implode("</td><td>",$row)."</td></tr>\r\n";
+		}
+		
+		return "<table>\r\n".$thead.$tbody."</table>";
+	}
+
+	public static function fillHtmlTemplate ($patterns, $replacements, $template) {
+		if (is_file($template)) {
+			return preg_replace($patterns, $replacements, file_get_contents($template));
+		}
+		else {
+			return false;
 		}
 	}
 	
