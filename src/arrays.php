@@ -31,11 +31,11 @@ class arrays {
 		return $records;
 	}
 	
-	public static function array2DSortDate($records, $field, $format_in = 'd/m/Y', $format_out = 'Ymd', $reverse=false) {
+	public static function array2DSortDate($records, $field, $format_in = 'd/m/Y', $reverse=false) {
 		$hash = array();
 	   
 		foreach($records as $record) {			
-			$hash[DateTime::createFromFormat($format_in, $record[$field])->format($format_out)] = $record;
+			$hash[DateTime::createFromFormat($format_in, $record[$field])->getTimestamp()] = $record;
 		}
 	   
 		($reverse)? krsort($hash) : ksort($hash);
