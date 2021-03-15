@@ -35,7 +35,8 @@ class arrays {
 		$hash = array();
 	   
 		foreach($records as $record) {			
-			$hash[DateTime::createFromFormat($format_in, $record[$field])->getTimestamp()] = $record;
+			//le nombre aléatoire a été ajouté pour que les timestanps ne s'écrasent pas en restant dans la même journée.
+			$hash[DateTime::createFromFormat($format_in, $record[$field])->getTimestamp()+rand(10, 86390)] = $record;
 		}
 	   
 		($reverse)? krsort($hash) : ksort($hash);
