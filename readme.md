@@ -13,10 +13,8 @@ La classe a la possibilité de charger un tableau en variables d'environnement s
 ### HTMLTools
 Collection de fonctions statiques pour manuipuler des données et sortir du HTML
 
-<<<<<<< HEAD
+
 ### Locations
 Convertion des projections de coordonnées WGS84 <=> Lambert93. Calcul de distance et azimut entre deux points.
-=======
-### Arrays
-Tri de tableau 2D selon la valeur d'une colonne (valeur, y compris date).
->>>>>>> 6b8851325f73017a915cb23ebef77a84f13b231f
+
+
