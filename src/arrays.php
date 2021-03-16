@@ -3,7 +3,7 @@
 /*********
 *
 *  File: arrays.php
-*  Date: 01/03/2021
+*  Date: 18/03/2021
 *  Suject : advanced fucntion to work on arrays
 *
 **********/
@@ -35,8 +35,11 @@ class arrays {
 		$hash = array();
 	   
 		foreach($records as $record) {			
+			//Cette méthode présente le bug d'écraser les lignes du tableau qui présentent la même date. Car le timestamp retourné correspond à 0h00
 			//le nombre aléatoire a été ajouté pour que les timestanps ne s'écrasent pas en restant dans la même journée.
-			$hash[DateTime::createFromFormat($format_in, $record[$field])->getTimestamp()+rand(10, 86390)] = $record;
+			//Cela donne une amplitude aléatoire de 0h00:02 à 23h59:58
+			//Ne fonctionnera pas si la date analysée comporte un horaire
+			$hash[DateTime::createFromFormat($format_in, $record[$field])->getTimestamp()+rand(2, 86398)] = $record;
 		}
 	   
 		($reverse)? krsort($hash) : ksort($hash);
