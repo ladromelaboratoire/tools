@@ -17,7 +17,8 @@ class arrays {
 		$hash = array();
 	   
 		foreach($records as $record) {
-			$hash[$record[$field]] = $record;
+			//Tri problématique quand nous sommes face à des nombres. Conversion en chaine, puis ajout d'une chaine aléatoire pour ne pas écraser les lignes.
+			$hash[(string)$record[$field].sprintf("%'.09d\n", rand(1, 999999999))] = $record;
 		}
 	   
 		($reverse)? krsort($hash) : ksort($hash);
