@@ -6,7 +6,8 @@
         "json"
     ],
     "require": {
-		"php": "^7.2"
+		"php": "^7.2",
+		"ext-ftp": "*"
     },
     "require-dev": {
     },
