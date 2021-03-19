@@ -17,4 +17,7 @@ Collection de fonctions statiques pour manuipuler des données et sortir du HTML
 ### Locations
 Convertion des projections de coordonnées WGS84 <=> Lambert93. Calcul de distance et azimut entre deux points.
 
+### LoadFTP
+Charge une liste de fichiers sur un serveur FTP
+
 

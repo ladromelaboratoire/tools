@@ -3,7 +3,7 @@
 require '../vendor/autoload.php';
 use ladromelaboratoire\tools\jsonLoader;
 
-$file = "sample.json";
+$file = "./sampledata/sample.json";
 $tableau = new jsonLoader($file);
 
 // Altenative call
