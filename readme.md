@@ -8,7 +8,7 @@ Collection d'outils simples pour les différents projets du labo
 - HTMLTools [doc](./doc/htmltools.md)
 - Locations [doc](./doc/locations.md)
 - Arrays [doc](./doc/arrays.md)
-- LoadFTP [doc](https://raw.githubusercontent.com/ladromelaboratoire/tools/main/doc/LoadFTP.md.html)
+- LoadFTP [doc](https://raw.githubusercontent.com/ladromelaboratoire/tools/main/doc/loadftp.md.html)
 
 ## Usage - via composer
 Ajouter dans le `composer.json` de votre projet 
