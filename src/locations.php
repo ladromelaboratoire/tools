@@ -3,7 +3,7 @@
  *
  *	@file : locations.php
  *	@author : La Drome laboratoire
- *	@version: 1.0.0
+ *	@version: 1.1.0
  *	@Date: 06/03/2021
  *	@license GPL
  *
@@ -71,7 +71,7 @@ class locations {
 	* https://geodesie.ign.fr/contenu/fichiers/documentation/algorithmes/notice/NTG_71.pdf
 	*
 	*******/
-	public static function wsg84ToLambert93 ($lat,$long) {
+	public static function wgs84ToLambert93 ($lat,$long) {
 
 		//paramtres de projections
 		$l0=$lc=deg2rad(self::__long_0); //longitude de réfrence

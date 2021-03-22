@@ -20,7 +20,7 @@ $point1 = locations::lambert93ToWgs84($point1['xl93'], $point1['yl93']);
 echo "conversion Lambert 93 vers WSG84\r\n";
 var_dump($point1);
 
-$point1 = locations::wsg84ToLambert93($point1['lat'], $point1['long']);
+$point1 = locations::wgs84ToLambert93($point1['lat'], $point1['long']);
 echo "conversion WSG84 vers Lambert93\r\n";
 var_dump($point1);
 
