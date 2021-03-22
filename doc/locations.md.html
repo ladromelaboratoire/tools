@@ -1,0 +1,127 @@
+<meta charset="utf-8" emacsmode="-*- markdown -*-"><link rel="stylesheet" href="https://casual-effects.com/markdeep/latest/slate.css?">
+
+                        **Locations**
+                           Version 1.0
+
+
+Classe de conversion de coordonnée géodésiques selon les référentiels WSG84 et Lambert93. WGS84 désigne _World Geodesic System 1984_. Ce système est utilisé pour le GPS américain, Galiléo européen, Baidou et Glonas.  
+Lambert93 est le système officiel de l'état français.  
+Le premier utilise une projection sphérique là où le second utilise une projection plane.
+
+
+Fonctionnalités
+==============================================================
+
+Supporté
+--------------------------------------------------------------
+- WGS84 vers Lambert93
+- Lambert93 vers WGS84
+- Distance entre deux points GPS
+- Azimut entre deux points GPS
+
+Non supporté
+--------------------------------------------------------------
+- Distance et azimut entre deux points Lambert93
+
+Installation
+==============================================================
+Ce module PHP tire parti du gestionnaire de dépendances **Composer**
+
+Pré-requis
+--------------------------------------------------------------
+- PHP 7.2+
+- Composer
+
+Usage simple
+--------------------------------------------------------------
+Pour un usage simple, la copie de ce dépôt dans un dous dossier de votre arborescence web suffit.  
+Avant de lancer votre navigateur, utiliser composer à la racine du dépôt pour qu'il mette à jour les dépendences et surtout crée le fichier `autoload.php`. La ligne de commande est ici votre meilleur amie : `composer update`
+
+Une simple connexion à l'adresse ci-dessous chargera affichera (sans mise en forme) quelques conversions de démonstration.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+http://localhost/votre_dossier/tests/locations.php
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Usage dans un projet
+--------------------------------------------------------------
+Intégrez le module à votre projet via Composer
+
+````json
+{
+    "require": {
+        "ladromelaboratoire/tools": "^1",
+    },
+    "repositories" : [
+        {
+            "type": "vcs",
+            "url" : "https://github.com/ladromelaboratoire/tools.git"
+        }
+    ],
+    "config": {
+      "github-oauth": {
+        "github.com": "votre-jeton-oauth"
+      }
+    }
+}
+````
+
+Méthodes
+==============================================================
+Les fonctions sont de type `static` et permettent donc d'être appelées sans l'instanciation d'un objet
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ php
+
+//Convertit des coordinnées lambert93 au format WSG84
+public static function lambert93ToWgs84($xl93, $yl93);
+
+//Convertit une longitude / latitude WSG84 au format Lambert 93
+public static function wgs84ToLambert93 ($lat,$long);
+
+//Calcul de la distance et azimut entre deux points WGS84 - Azimut entre 0 et 360. Distance en mètres
+public static function distance2Points ($point1, $point2);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Usage basique
+==============================================================
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ php
+require '../vendor/autoload.php';
+use ladromelaboratoire\tools\locations;
+
+//La Drome laboratoire
+$point1['lat'] = 44.90609;
+$point1['long'] = 4.90495;
+$point1['xl93'] = 850345.9;
+$point1['yl93'] = 6424802.4;
+
+
+//pointe de Corsen, Plouarzel, Finistère
+$point2['lat'] = 48.41278;
+$point2['long'] = -4.79556;
+
+echo "Données de départ\r\n";
+var_dump($point1);
+
+$point1 = locations::lambert93ToWgs84($point1['xl93'], $point1['yl93']);
+echo "conversion Lambert 93 vers WGS84\r\n";
+var_dump($point1);
+
+$point1 = locations::wgs84ToLambert93($point1['lat'], $point1['long']);
+echo "conversion WGS84 vers Lambert93\r\n";
+var_dump($point1);
+
+$dist = locations::distance2Points($point1,$point2);
+echo "Distance et azimut entre deux points<br/>Entre LDL et la pointe ouest de la Bretagne\r\n";
+var_dump($dist);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Arborescence de la doc
+==============================================================
+
+[Link to nowhere](nowhere).
+
+
+ 
+<style class="fallback">body{visibility:hidden}</style><script>markdeepOptions={tocStyle:'long'};</script>
+<!-- Markdeep: --><script src="https://casual-effects.com/markdeep/latest/markdeep.min.js?" charset="utf-8"></script>
