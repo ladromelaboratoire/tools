@@ -1,0 +1,148 @@
+<meta charset="utf-8" emacsmode="-*- markdown -*-"><link rel="stylesheet" href="https://casual-effects.com/markdeep/latest/slate.css?">
+
+                        **Arrays**
+                           Version 1.0
+
+
+Tri de tableaux de tableaux associatifs. Les tableaux fournis sont triés selon l'une de leur colonnes
+
+
+Fonctionnalités
+==============================================================
+
+Supporté
+--------------------------------------------------------------
+- Tris sur n'importe quel colonne
+- Tri ascendant ou descendant
+- Tri par date au format européen dd/mm/yyyy
+
+Non supporté
+--------------------------------------------------------------
+- Tri multi-critères
+
+Installation
+==============================================================
+Ce module PHP tire parti du gestionnaire de dépendances [Composer](https://getcomposer.org)
+
+Pré-requis
+--------------------------------------------------------------
+- PHP 7.2+
+- Composer
+
+Usage simple
+--------------------------------------------------------------
+Pour un usage simple, la copie de ce dépôt dans un dous dossier de votre arborescence web suffit.  
+Avant de lancer votre navigateur, utiliser composer à la racine du dépôt pour qu'il mette à jour les dépendences et surtout crée le fichier `autoload.php`. La ligne de commande est ici votre meilleur amie : `composer update`
+
+Une simple connexion à l'adresse ci-dessous chargera affichera (sans mise en forme) quelques conversions de démonstration.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+http://localhost/votre_dossier/tests/array.php
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Usage dans un projet
+--------------------------------------------------------------
+Intégrez le module à votre projet via Composer
+
+````json
+{
+    "require": {
+        "ladromelaboratoire/tools": "^1.",
+    },
+    "repositories" : [
+        {
+            "type": "vcs",
+            "url" : "https://github.com/ladromelaboratoire/tools.git"
+        }
+    ],
+    "config": {
+      "github-oauth": {
+        "github.com": "votre-jeton-oauth"
+      }
+    }
+}
+````
+
+Méthodes
+==============================================================
+Ces méthodes sont `static` pour pemettre leur usage en dehors d'un objet
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ php
+//Tri le tableau $records selon la colonne $field en mode ascendant ou descendant
+public static function array2DSort($records, $field, $reverse=false);
+
+//Tri du tableau $records selon la colonne $field qui est une date
+public static function array2DSortDate($records, $field, $format_in = 'd/m/Y', $reverse=false);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Usage basique
+==============================================================
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ php
+require '../vendor/autoload.php';
+use ladromelaboratoire\tools\arrays;
+use ladromelaboratoire\tools\htmltools;
+
+
+//Extrait de trace GPX
+$points[] = array('lat' => 51.08252, 'long' => 2.52480, 'date' => '01/02/2021');
+$points[] = array('lat' => 51.08263, 'long' => 2.52477, 'date' => '02/02/2021');
+$points[] = array('lat' => 51.08288, 'long' => 2.52494, 'date' => '03/02/2021');
+$points[] = array('lat' => 51.08922, 'long' => 2.54496, 'date' => '04/02/2021');
+$points[] = array('lat' => 51.08917, 'long' => 2.54544, 'date' => '05/02/2021');
+$points[] = array('lat' => 51.08888, 'long' => 2.54569, 'date' => '06/02/2021');
+$points[] = array('lat' => 51.08886, 'long' => 2.54589, 'date' => '07/02/2021');
+$points[] = array('lat' => 51.09220, 'long' => 2.55615, 'date' => '08/02/2021');
+$points[] = array('lat' => 51.09391, 'long' => 2.56055, 'date' => '09/02/2021');
+$points[] = array('lat' => 51.09438, 'long' => 2.56138, 'date' => '01/02/2021');
+$points[] = array('lat' => 51.09585, 'long' => 2.56556, 'date' => '02/02/2021');
+$points[] = array('lat' => 51.09564, 'long' => 2.56572, 'date' => '03/02/2021');
+$points[] = array('lat' => 51.09475, 'long' => 2.56580, 'date' => '04/02/2021');
+$points[] = array('lat' => 51.09346, 'long' => 2.56535, 'date' => '05/02/2021');
+$points[] = array('lat' => 51.09229, 'long' => 2.56519, 'date' => '06/02/2021');
+$points[] = array('lat' => 51.09221, 'long' => 2.56505, 'date' => '07/02/2021');
+$points[] = array('lat' => 51.09193, 'long' => 2.56506, 'date' => '08/02/2021');
+$points[] = array('lat' => 51.09179, 'long' => 2.56493, 'date' => '09/02/2021');
+$points[] = array('lat' => 51.09160, 'long' => 2.56495, 'date' => '01/02/2021');
+$points[] = array('lat' => 51.09126, 'long' => 2.56569, 'date' => '02/02/2021');
+$points[] = array('lat' => 51.09124, 'long' => 2.56596, 'date' => '03/02/2021');
+$points[] = array('lat' => 51.09131, 'long' => 2.56611, 'date' => '04/02/2021');
+$points[] = array('lat' => 51.09142, 'long' => 2.56619, 'date' => '05/02/2021');
+$points[] = array('lat' => 51.09160, 'long' => 2.56619, 'date' => '06/02/2021');
+$points[] = array('lat' => 51.09219, 'long' => 2.56671, 'date' => '07/02/2021');
+$points[] = array('lat' => 51.09246, 'long' => 2.56715, 'date' => '08/02/2021');
+$points[] = array('lat' => 51.09254, 'long' => 2.56736, 'date' => '09/02/2021');
+$points[] = array('lat' => 51.09248, 'long' => 2.56755, 'date' => '01/02/2021');
+$points[] = array('lat' => 51.09226, 'long' => 2.56760, 'date' => '02/02/2021');
+$points[] = array('lat' => 51.08990, 'long' => 2.56702, 'date' => '03/02/2021');
+
+
+
+//tabeau trié ascendant
+$tableau1 = arrays::array2DSort($points, 'lat', false);
+//tableau trié descendant
+$tableau2 = arrays::array2DSort($points, 'long', true);
+//tableau trié par date ascendante
+$tableau3 = arrays::array2DSortDate($points, 'date');
+
+
+echo "<p>Données initiales <br/>";
+echo htmltools::array2html($points, true);
+echo "</p><p>tabeau trié ascendant <br/>";
+echo htmltools::array2html($tableau1, true);
+echo "</p><p>tableau trié descendant <br/>";
+echo htmltools::array2html($tableau2, true);
+echo "</p><p>tableau trié par date ascendante <br/>";
+echo htmltools::array2html($tableau3, true);
+echo "</p>";
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Arborescence de la doc
+==============================================================
+
+- [LoadFTP](./loadftp.md.html)
+- [Locations](./locations.md.html)
+- [JsonLoader](./jsonloader.md.html)
+- [HTMLTools](./htmltools.md.html)
+ 
+<style class="fallback">body{visibility:hidden}</style><script>markdeepOptions={tocStyle:'long'};</script>
+<!-- Markdeep: --><script src="https://casual-effects.com/markdeep/latest/markdeep.min.js?" charset="utf-8"></script>

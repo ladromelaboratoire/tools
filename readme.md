@@ -4,10 +4,10 @@ Collection d'outils simples pour les différents projets du labo
 
 ## Contenu
 
-- JsonLoader [doc](./doc/jsonloader.md)
-- HTMLTools [doc](./doc/htmltools.md)
+- JsonLoader [doc](./doc/jsonloader.md.html)
+- HTMLTools [doc](./doc/htmltools.md.html)
 - Locations [doc](./doc/locations.md.html)
-- Arrays [doc](./doc/arrays.md)
+- Arrays [doc](./doc/arrays.md.html)
 - LoadFTP [doc](./doc/loadftp.md.html)
 
 ## Usage - via composer

@@ -1,12 +1,11 @@
 <meta charset="utf-8" emacsmode="-*- markdown -*-"><link rel="stylesheet" href="https://casual-effects.com/markdeep/latest/slate.css?">
 
-                        **Locations**
-                           Version 1.1
+                        **JsonLoader**
+                           Version 1.0
 
 
-Classe de conversion de coordonnée géodésiques selon les référentiels WSG84 et Lambert93. WGS84 désigne _World Geodesic System 1984_. Ce système est utilisé pour le GPS américain, Galiléo européen, Baidou et Glonas.  
-Lambert93 est le système officiel de l'état français.  
-Le premier utilise une projection sphérique là où le second utilise une projection plane.
+Charge un doscument JSON en tableau associatif. Très utile pour lire la configuration d'une application.  
+Permet également d'envoyer certaine données en variable d'environnement.
 
 
 Fonctionnalités
@@ -14,17 +13,16 @@ Fonctionnalités
 
 Supporté
 --------------------------------------------------------------
-- WGS84 vers Lambert93
-- Lambert93 vers WGS84
-- Distance et azimut entre deux points WGS84
+- Charger un Json en tableau
+- Charger un fichier en variable d'environnement
 
 Non supporté
 --------------------------------------------------------------
-- Distance et azimut entre deux points Lambert93
+- Tout le reste
 
 Installation
 ==============================================================
-Ce module PHP tire parti du gestionnaire de dépendances **Composer**
+Ce module PHP tire parti du gestionnaire de dépendances [Composer](https://getcomposer.org)
 
 Pré-requis
 --------------------------------------------------------------
@@ -38,7 +36,7 @@ Avant de lancer votre navigateur, utiliser composer à la racine du dépôt pour
 
 Une simple connexion à l'adresse ci-dessous chargera affichera (sans mise en forme) quelques conversions de démonstration.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-http://localhost/votre_dossier/tests/locations.php
+http://localhost/votre_dossier/tests/jsonloader.php
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Usage dans un projet
@@ -66,17 +64,19 @@ Intégrez le module à votre projet via Composer
 
 Méthodes
 ==============================================================
-Les fonctions sont de type `static` et permettent donc d'être appelées sans l'instanciation d'un objet
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ php
-//Convertit des coordinnées lambert93 au format WSG84
-public static function lambert93ToWgs84($xl93, $yl93);
+//Json converti en tableau
+public $jsonArray = null;
 
-//Convertit une longitude / latitude WSG84 au format Lambert 93
-public static function wgs84ToLambert93 ($lat,$long);
+//Dernier message d'erreur
+public $error_message = "";
 
-//Calcul de la distance et azimut entre deux points WGS84 - Azimut entre 0 et 360. Distance en mètres
-public static function distance2Points ($point1, $point2);
+//Lit un fichier JSON et le décode
+public function jsonGrabber($file);
+
+//Envoi chaque clef / valeur en valriable d'environnement
+public function push2env();
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Usage basique
@@ -84,33 +84,23 @@ Usage basique
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ php
 require '../vendor/autoload.php';
-use ladromelaboratoire\tools\locations;
+use ladromelaboratoire\tools\jsonLoader;
 
-//La Drome laboratoire
-$point1['lat'] = 44.90609;
-$point1['long'] = 4.90495;
-$point1['xl93'] = 850345.9;
-$point1['yl93'] = 6424802.4;
+$file = "./sampledata/sample.json";
+$tableau = new jsonLoader($file);
 
+// Altenative call
+// $tableau = new jsonLoader();
+// $tableau->jsonGrabber($file);
 
-//pointe de Corsen, Plouarzel, Finistère
-$point2['lat'] = 48.41278;
-$point2['long'] = -4.79556;
-
-echo "Données de départ\r\n";
-var_dump($point1);
-
-$point1 = locations::lambert93ToWgs84($point1['xl93'], $point1['yl93']);
-echo "conversion Lambert 93 vers WGS84\r\n";
-var_dump($point1);
-
-$point1 = locations::wgs84ToLambert93($point1['lat'], $point1['long']);
-echo "conversion WGS84 vers Lambert93\r\n";
-var_dump($point1);
-
-$dist = locations::distance2Points($point1,$point2);
-echo "Distance et azimut entre deux points<br/>Entre LDL et la pointe ouest de la Bretagne\r\n";
-var_dump($dist);
+echo "<pre>";
+if($tableau->error) {
+	echo $tableau->error_message;
+}
+else {
+	print_r($tableau->jsonArray);
+}
+echo "</pre>";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
@@ -118,6 +108,7 @@ Arborescence de la doc
 ==============================================================
 
 - [LoadFTP](./loadftp.md.html)
+- [Locations](./locations.md.html)
  
 <style class="fallback">body{visibility:hidden}</style><script>markdeepOptions={tocStyle:'long'};</script>
 <!-- Markdeep: --><script src="https://casual-effects.com/markdeep/latest/markdeep.min.js?" charset="utf-8"></script>
