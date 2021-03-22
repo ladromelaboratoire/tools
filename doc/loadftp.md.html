@@ -1,0 +1,126 @@
+     <meta charset="utf-8" emacsmode="-*- markdown -*-"><link rel="stylesheet" href="https://casual-effects.com/markdeep/latest/slate.css?">
+
+                        **loadFTP**
+                           Version 1.0
+
+
+Classe de chargement d'une liste de fichiers vers un serveur FTP
+
+
+Fonctionnalités
+==============================================================
+
+Supporté
+--------------------------------------------------------------
+- Connexion
+- Authentification simple (login, password)
+- Chargement d'une liste de fichiers à la racine du serveur
+- Mode passif
+- Déconnexion
+
+Non supporté
+--------------------------------------------------------------
+- Connexion via SSL
+- Lecture de l'arborescence du serveur FTP
+- Rappatriement de fichiers
+- Gestion des dossiers
+- Dépôt de fichiers dans un sous-dossier du serveur
+
+Installation
+==============================================================
+Ce module PHP tire parti du gestionnaire de dépendances **Composer**
+
+Pré-requis
+--------------------------------------------------------------
+- PHP 7.2+
+- Composer
+- Extension PHP-FTP activée
+
+Usage simple
+--------------------------------------------------------------
+Pour un usage simple, la copie de ce dépôt dans un dous dossier de votre arborescence web suffit.  
+Avant de lancer votre navigateur, utiliser composer à la racine du dépôt pour qu'il mette à jour les dépendences et surtout crée le fichier `autoload.php`. La ligne de commande est ici votre meilleur amie : `composer update`
+
+Une simple connexion à l'adresse ci-dessous chargera le contenu du dossier `sampledata` sur le serveur FTP  disponible en local avec le compte admin / admin (si vous l'avez paramétré).
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+http://localhost/votre_dossier/tests/loadftp.php
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Usage dans un projet
+--------------------------------------------------------------
+Intégrez le module à votre projet via Composer
+
+````json
+{
+    "require": {
+        "ladromelaboratoire/tools": "^1",
+    },
+    "repositories" : [
+        {
+            "type": "vcs",
+            "url" : "https://github.com/ladromelaboratoire/tools.git"
+        }
+    ],
+    "config": {
+      "github-oauth": {
+        "github.com": "votre-jeton-oauth"
+      }
+    }
+}
+````
+
+Méthodes
+==============================================================
+Voici la liste des méthodes disponibles dans la classe.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ php
+
+//Construit l'objet avec pour paramètres le serveur, le compte et le mot de passe
+function __construct($server = "localhost", $login = "user", $pwd = "pwd");
+
+//Connecte le serveur FTP sur un port donné, un timeout et un mode passif actif ou non
+public function connectftp($port = null, $timeout = null, $passive = true);
+
+//Charge sur le serveur (à sa racine) les fichiers données avec leur chemin absolu dans le tableau communiqué en paramètre
+public function load($files);
+
+//Renvoie les erreurs connues
+public function getErrors();
+
+//Déconnecte du serveur
+public function disconnect();
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Usage basique
+==============================================================
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ php
+require '../vendor/autoload.php';
+use ladromelaboratoire\tools\loadftp;
+
+$server = 'localhost';
+$login = 'admin';
+$pwd = 'admin';
+$folder = "./sampledata/";
+// $filter = "*.[csv|CSV|tsv|TSV|xml|XML]"; //pour ne filtrer que certains types de fichiers
+$filter = "*"; //récupère tous les fichiers
+$files = glob($folder.$filter);
+
+
+$job = new loadftp($server, $login, $pwd);
+$job->connectftp();
+$result = $job->load($files);
+$job->disconnect();
+unset($job);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Arborescence de la doc
+==============================================================
+
+[Link to nowhere](nowhere).
+
+
+ 
+<style class="fallback">body{visibility:hidden}</style><script>markdeepOptions={tocStyle:'long'};</script>
+<!-- Markdeep: --><script src="https://casual-effects.com/markdeep/latest/markdeep.min.js?" charset="utf-8"></script>
