@@ -11,14 +11,16 @@ $folder = "./sampledata/";
 $filter = "*";
 $files = glob($folder.$filter);
 
+if (is_array($files)) {
 
-$job = new loadftp($server, $login, $pwd);
-$job->connectftp();
-$result = $job->load($files);
-$job->disconnect();
-unset($job);
+	$job = new loadftp($server, $login, $pwd);
+	$job->connectftp();
+	$result = $job->load($files);
+	$job->disconnect();
+	unset($job);
 
-var_dump($result);
+	var_dump($result);
+}
 
 
 ?>

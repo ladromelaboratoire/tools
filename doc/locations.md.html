@@ -29,7 +29,7 @@ Ce module PHP tire parti du gestionnaire de dépendances **Composer**
 Pré-requis
 --------------------------------------------------------------
 - PHP 7.2+
-- Composer
+- Composer recommandé
 
 Usage simple
 --------------------------------------------------------------
@@ -64,6 +64,16 @@ Intégrez le module à votre projet via Composer
 }
 ````
 
+Usage sans composer
+
+````php
+require('chemin/vers/la/classe/locations.php');
+/*
+ votre code appelant les méthodes statiques de la classe
+*/
+
+````
+
 Méthodes
 ==============================================================
 Les fonctions sont de type `static` et permettent donc d'être appelées sans l'instanciation d'un objet
@@ -81,7 +91,7 @@ public static function distance2Points ($point1, $point2);
 
 Usage basique
 ==============================================================
-
+le fichier de test fourni permet d'utiliser la classe et démontre son usage.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ php
 require '../vendor/autoload.php';
 use ladromelaboratoire\tools\locations;
