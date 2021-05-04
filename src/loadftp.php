@@ -9,7 +9,7 @@
  *
  *	Connexion à un serveur FTP et upload de fichiers
  *
- *	Ajouter le support FTP
+ *	Ajouter le support SFTP
  *
  *
  ********************/ 
