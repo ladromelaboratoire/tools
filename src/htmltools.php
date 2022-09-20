@@ -25,7 +25,7 @@ class htmltools {
 			$tbody .= "<tr><td>".implode("</td><td>",$row)."</td></tr>\r\n";
 		}
 		
-		return "<table>\r\n".$thead.$tbody."</table>";
+		return "<table>\r\n<thead>".$thead."</thead><tbody>".$tbody."</tbody></table>";
 	}
 
 	public static function fillHtmlTemplate ($patterns, $replacements, $template) {

@@ -17,12 +17,12 @@ $point2['lat'] = 48.41278;
 $point2['long'] = -4.79556;
 
 //Claveyson
-$point3['lat'] = 45.17187;
-$point3['long'] = 4.91706;
+$point3['lat'] = 44.6858300;
+$point3['long'] = 5.0788900;
 
 //antenne
-$point4['lat'] = 45.15139;
-$point4['long'] = 5.0475;
+$point4['lat'] = 44.7656379;
+$point4['long'] = 5.1077537;
 
 echo "Données de départ\r\n";
 var_dump($point1);
@@ -35,7 +35,7 @@ $point1 = locations::wgs84ToLambert93($point1['lat'], $point1['long']);
 echo "conversion WSG84 vers Lambert93\r\n";
 var_dump($point1);
 
-$dist = locations::distance2Points($point1,$point2);
+$dist = locations::distance2Points($point3,$point4);
 echo "Distance et azimut entre deux points<br/>Entre LDL et la pointe ouest de la Bretagne\r\n";
 var_dump($dist);
 
