@@ -16,9 +16,9 @@ $point1['yl93'] = 6424802.4;
 $point2['lat'] = 48.41278;
 $point2['long'] = -4.79556;
 
-//Claveyson
-$point3['lat'] = 44.6858300;
-$point3['long'] = 5.0788900;
+//drome
+$point3['lat'] = 44.709999;
+$point3['long'] = 5.079999;
 
 //antenne
 $point4['lat'] = 44.7656379;
